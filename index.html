@@ -1,0 +1,620 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Soil Hydrology & Physics Lab at North Dakota State University, led by Dr. Kang Liang. Research on soil and water quality, carbon and nitrogen cycling, and agricultural management.">
+<link rel="canonical" href="https://soilhydrolab.com/">
+<style>
+body{margin:0}img{max-width:100%}[hidden]{display:none!important}
+</style>
+<title>Soil Hydrology &amp; Physics Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: sticky top bar, one view per section (hash-routed); home = soil-profile hero, then research areas, featured work, news */
+:root{
+  --bg:#e4eff7; --surface:#ffffff; --ink:#1a2830; --muted:#4f6370; --line:#c7d8e4;
+  --prairie:#1f5c45; --prairie-soft:#e3eee8; --water:#2b6894; --wheat:#b8901c;
+  --h1:#4a3726; --h2:#6b4f35; --h3:#9a7350; --h4:#c4a888;
+  --display:"Zilla Slab", Rockwell, "Roboto Slab", Georgia, serif;
+  --body:"Public Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0e1b26; --surface:#152534; --ink:#e3ebf1; --muted:#97aab8; --line:#253a4c;
+    --prairie:#74c39d; --prairie-soft:#1d2e26; --water:#82b6dd; --wheat:#dcbc5a;
+    --h1:#3a2b1f; --h2:#56402c; --h3:#7d5f43; --h4:#a68a6c;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0e1b26; --surface:#152534; --ink:#e3ebf1; --muted:#97aab8; --line:#253a4c;
+  --prairie:#74c39d; --prairie-soft:#1d2e26; --water:#82b6dd; --wheat:#dcbc5a;
+  --h1:#3a2b1f; --h2:#56402c; --h3:#7d5f43; --h4:#a68a6c;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+a{color:var(--prairie);text-underline-offset:3px}
+a:hover{color:var(--water)}
+:focus-visible{outline:2px solid var(--water);outline-offset:2px;border-radius:2px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;line-height:1.15;margin:0}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+
+/* top bar */
+header.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border-bottom:1px solid var(--line)}
+header.bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.brand svg{flex:none}
+.brand b{font-family:var(--display);font-size:19px;font-weight:700;line-height:1.1;display:block}
+.brand small{font-size:12px;color:var(--muted);display:block}
+nav ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:2px}
+nav a{display:block;padding:6px 10px;font-size:14px;font-weight:500;color:var(--muted);text-decoration:none;border-radius:4px}
+nav a:hover{color:var(--ink);background:var(--prairie-soft)}
+nav a[aria-current="page"]{color:var(--prairie);background:var(--prairie-soft)}
+
+main{padding-block:40px 64px}
+section.view{display:grid;gap:48px}
+.page-head{display:grid;gap:8px;max-width:68ch}
+.page-head h1{font-size:clamp(30px,5vw,42px)}
+.page-head p{margin:0;color:var(--muted)}
+
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:40px;align-items:center}
+.hero h1{font-size:clamp(34px,6vw,56px);font-weight:700;letter-spacing:-.01em}
+.hero h1 span{color:var(--prairie)}
+.hero p.lede{font-size:18px;max-width:56ch;margin:16px 0 0}
+.hero .meta{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px 20px;font-size:14px;color:var(--muted)}
+.btns{margin-top:24px;display:flex;flex-wrap:wrap;gap:10px}
+.btn{display:inline-block;padding:10px 16px;border-radius:4px;font-weight:600;font-size:14px;text-decoration:none;border:1px solid var(--prairie)}
+.btn.primary{background:var(--prairie);color:var(--bg)}
+.btn.primary:hover{color:var(--bg);opacity:.9}
+.btn.ghost{color:var(--prairie)}
+.profile{width:100%;max-width:420px;justify-self:end}
+.profile svg{width:100%;height:auto;display:block}
+.profile figcaption{font-size:12px;color:var(--muted);margin-top:6px;font-family:var(--mono)}
+
+/* research areas */
+.areas{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.area{background:var(--surface);padding:20px;display:grid;gap:6px;align-content:start}
+.area h3{font-size:19px}
+.area p{margin:0;font-size:14px;color:var(--muted)}
+.sec-title{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;border-bottom:2px solid var(--ink);padding-bottom:8px;margin-bottom:20px}
+.sec-title h2{font-size:26px}
+.sec-title a{font-size:14px;font-weight:600}
+
+/* featured */
+.featured{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.feat{display:grid;gap:8px;padding-top:14px;border-top:3px solid var(--wheat);min-width:0}
+.feat .j{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.feat h3{font-size:19px;font-weight:600}
+.feat h3 a{color:var(--ink);text-decoration:none}
+.feat h3 a:hover{color:var(--prairie);text-decoration:underline}
+.feat p{margin:0;font-size:15px}
+
+/* tool callout */
+.tool{display:grid;grid-template-columns:auto minmax(0,1fr);gap:20px;align-items:start;background:var(--prairie-soft);padding:24px;border-radius:6px}
+.tool .tag{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--prairie);border:1px solid var(--prairie);padding:4px 8px;border-radius:3px;white-space:nowrap}
+.tool h3{font-size:22px}
+.tool p{margin:6px 0 0;max-width:68ch}
+.tool .links{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px 18px;font-size:14px;font-weight:600}
+
+/* sponsors */
+.sponsors{display:flex;flex-wrap:wrap;gap:10px}
+.sponsor{border:1px solid var(--line);background:var(--surface);padding:8px 14px;border-radius:4px;font-size:14px;font-weight:600}
+.sponsor small{display:block;font-weight:400;color:var(--muted);font-size:12px}
+
+/* news */
+.news{list-style:none;margin:0;padding:0;display:grid}
+.news li{display:grid;grid-template-columns:9.5rem minmax(0,1fr);gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
+.news time{font-family:var(--mono);font-size:13px;color:var(--muted);padding-top:2px;font-variant-numeric:tabular-nums}
+.news p{margin:0}
+
+/* team */
+.pi{display:grid;grid-template-columns:200px minmax(0,1fr);gap:32px;align-items:start}
+.portrait{aspect-ratio:4/5;max-width:100%;background:var(--prairie-soft);border:1px dashed var(--line);display:grid;place-items:center;text-align:center;color:var(--muted);font-size:13px;border-radius:4px;padding:12px}
+.pi h2{font-size:30px}
+.pi .role{color:var(--muted);margin:4px 0 12px}
+.pi p{margin:0 0 12px;max-width:68ch}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0;list-style:none}
+.chips li{font-size:13px;background:var(--prairie-soft);color:var(--prairie);padding:3px 10px;border-radius:999px}
+.members{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.member{display:grid;gap:6px;align-content:start}
+.member .portrait{aspect-ratio:1}
+.member h3{font-size:18px}
+.member p{margin:0;font-size:14px;color:var(--muted)}
+.ph{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;background:var(--wheat);color:var(--bg);padding:1px 6px;border-radius:2px;vertical-align:middle}
+.join{border-left:4px solid var(--water);padding:4px 0 4px 20px;max-width:72ch}
+.join h3{font-size:20px;margin-bottom:6px}
+.join p{margin:0}
+
+/* research page */
+.theme{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:32px;padding-block:28px;border-top:1px solid var(--line)}
+.theme:first-of-type{border-top:0;padding-top:0}
+.theme h2{font-size:24px}
+.theme .eyebrow{display:block;margin-bottom:6px}
+.theme p{margin:0 0 12px}
+.theme ul{margin:0;padding-left:18px;font-size:15px}
+.projects{list-style:none;margin:0;padding:0;display:grid}
+.projects li{display:grid;grid-template-columns:9.5rem minmax(0,1fr);gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
+.projects .yrs{font-family:var(--mono);font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.projects .fund{font-weight:600;color:var(--prairie)}
+.projects .gr{font-size:13px;color:var(--muted)}
+.status{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--water);border:1px solid var(--water);padding:0 5px;border-radius:2px;margin-left:6px}
+
+/* publications */
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.toolbar input{flex:1 1 260px;min-width:0;font:inherit;font-size:15px;padding:9px 12px;border:1px solid var(--line);border-radius:4px;background:var(--surface);color:var(--ink)}
+.seg{display:flex;border:1px solid var(--line);border-radius:4px;overflow:hidden}
+.seg button{font:inherit;font-size:14px;font-weight:500;padding:8px 14px;border:0;background:var(--surface);color:var(--muted);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--prairie);color:var(--bg)}
+.count{font-size:13px;color:var(--muted);font-family:var(--mono)}
+.year{display:grid;grid-template-columns:5rem minmax(0,1fr);gap:16px;padding-block:14px;border-top:1px solid var(--line)}
+.year h3{font-family:var(--mono);font-size:15px;font-weight:500;color:var(--muted);padding-top:3px}
+.year ol{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.ref{font-size:15px}
+.ref .t{font-weight:600}
+.ref .v{font-style:italic}
+.ref mark{background:none;color:inherit;font-weight:700}
+.ref .note{color:var(--muted);font-size:13px}
+.ref .kind{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--loam,var(--h2));margin-right:6px}
+
+/* contact */
+.contact{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:24px;display:grid;gap:12px;align-content:start}
+.card h2{font-size:22px}
+.card p{margin:0}
+.copyrow{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.copyrow code{font-family:var(--mono);font-size:15px;background:var(--prairie-soft);padding:6px 10px;border-radius:4px;user-select:all;word-break:break-all}
+.copyrow button{font:inherit;font-size:13px;font-weight:600;padding:6px 12px;border:1px solid var(--prairie);background:transparent;color:var(--prairie);border-radius:4px;cursor:pointer}
+.services{columns:2;column-gap:32px;margin:0;padding-left:18px;font-size:15px}
+
+footer{border-top:1px solid var(--line);background:var(--surface)}
+footer .wrap.funders{display:grid;gap:14px;padding-block:28px 8px}
+.logos{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.logo{height:84px;border:1px dashed var(--line);border-radius:4px;display:grid;place-content:center;text-align:center;gap:2px;padding:8px}
+.logo span{font-family:var(--display);font-weight:700;font-size:18px;color:var(--ink)}
+.logo small{font-size:11px;color:var(--muted)}
+.logo img{max-height:64px;max-width:100%;object-fit:contain}
+@media (max-width:820px){.logos{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:520px){.logos{grid-template-columns:repeat(2,minmax(0,1fr))}}
+footer .wrap{padding-block:24px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:13px;color:var(--muted)}
+
+@media (max-width:820px){
+  .hero,.pi,.theme,.contact{grid-template-columns:1fr}
+  .profile{justify-self:start;max-width:360px}
+  .areas,.members{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .featured{grid-template-columns:1fr}
+  .pi .portrait{max-width:200px}
+}
+@media (max-width:520px){
+  .areas,.members{grid-template-columns:1fr}
+  .news li,.projects li,.year{grid-template-columns:1fr;gap:4px}
+  .tool{grid-template-columns:1fr}
+  .services{columns:1}
+  nav a{padding:6px 8px}
+}
+@media (prefers-reduced-motion:no-preference){
+  .wet{stroke-dasharray:6 5;animation:seep 3s linear infinite}
+  @keyframes seep{to{stroke-dashoffset:-22}}
+}
+</style>
+
+</head>
+<body>
+<header class="bar">
+  <div class="wrap">
+    <a class="brand" href="#home" data-go="home" aria-label="Soil Hydrology and Physics Lab, home">
+      <svg width="36" height="36" viewBox="0 0 36 36" aria-hidden="true">
+        <rect x="2" y="2" width="32" height="8" fill="var(--prairie)"/>
+        <rect x="2" y="10" width="32" height="8" fill="var(--h2)"/>
+        <rect x="2" y="18" width="32" height="8" fill="var(--h3)"/>
+        <rect x="2" y="26" width="32" height="8" fill="var(--h4)"/>
+        <path d="M22 6 C22 14 14 18 14 30" stroke="var(--water)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      </svg>
+      <span><b>Soil Hydrology &amp; Physics Lab</b><small>North Dakota State University</small></span>
+    </a>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="#home" data-go="home">Home</a></li>
+        <li><a href="#team" data-go="team">Team</a></li>
+        <li><a href="#research" data-go="research">Research</a></li>
+        <li><a href="#publications" data-go="publications">Publications</a></li>
+        <li><a href="#news" data-go="news">News</a></li>
+        <li><a href="#contact" data-go="contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- HOME -->
+<section class="view" id="v-home" data-view="home">
+  <div class="hero">
+    <div>
+      <p class="eyebrow">School of Natural Resource Sciences · NDSU</p>
+      <h1>How water, carbon, and nitrogen move through <span>agricultural soils</span></h1>
+      <p class="lede">We combine field observations, process-based models, remote sensing, and machine learning to understand how climate, land use, and management change soil and water quality, and to help reduce the environmental footprint of farming.</p>
+      <div class="meta"><span>PI: Dr. Kang Liang, Ph.D., P.Eng.</span><span>Fargo, North Dakota</span></div>
+      <div class="btns">
+        <a class="btn primary" href="#research" data-go="research">Our research</a>
+        <a class="btn ghost" href="#team" data-go="team">Join the lab</a>
+      </div>
+    </div>
+    <figure class="profile" style="margin:0">
+      <svg viewBox="0 0 400 340" role="img" aria-label="Diagram of a soil profile with horizons Ap, A, Bt and C to 120 cm depth, a wetting front, and nitrate moving down toward groundwater">
+        <!-- crop row -->
+        <g stroke="var(--prairie)" stroke-width="2.5" fill="none" stroke-linecap="round">
+          <path d="M110 40 L110 14 M110 26 L100 18 M110 22 L120 14"/>
+          <path d="M190 40 L190 10 M190 24 L178 15 M190 19 L202 11"/>
+          <path d="M270 40 L270 16 M270 28 L260 20 M270 24 L280 16"/>
+        </g>
+        <!-- horizons: 0-20, 20-35, 35-80, 80-120 cm ; scale 2.4 px/cm from y=40 -->
+        <rect x="60" y="40" width="270" height="48" fill="var(--h1)"/>
+        <rect x="60" y="88" width="270" height="36" fill="var(--h2)"/>
+        <rect x="60" y="124" width="270" height="108" fill="var(--h3)"/>
+        <rect x="60" y="232" width="270" height="96" fill="var(--h4)"/>
+        <g font-family="IBM Plex Mono, monospace" font-size="12" fill="var(--bg)">
+          <text x="70" y="68">Ap</text><text x="70" y="110">A</text><text x="70" y="182">Bt</text><text x="70" y="284">C</text>
+        </g>
+        <!-- depth scale -->
+        <g font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--muted)" text-anchor="end">
+          <line x1="52" y1="40" x2="52" y2="328" stroke="var(--muted)"/>
+          <g stroke="var(--muted)"><line x1="47" y1="40" x2="52" y2="40"/><line x1="47" y1="88" x2="52" y2="88"/><line x1="47" y1="124" x2="52" y2="124"/><line x1="47" y1="232" x2="52" y2="232"/><line x1="47" y1="328" x2="52" y2="328"/></g>
+          <text x="44" y="44" stroke="none">0</text><text x="44" y="92" stroke="none">20</text><text x="44" y="128" stroke="none">35</text><text x="44" y="236" stroke="none">80</text><text x="44" y="332" stroke="none">120</text>
+          <text x="44" y="20" stroke="none">cm</text>
+        </g>
+        <!-- wetting front -->
+        <path class="wet" d="M60 150 C120 140 160 168 220 156 S300 146 330 160" stroke="var(--water)" stroke-width="3" fill="none"/>
+        <text x="338" y="164" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--water)">wetting</text>
+        <text x="338" y="177" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--water)">front</text>
+        <!-- nitrate -->
+        <g fill="var(--wheat)" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="500">
+          <text x="200" y="104">NO₃⁻</text>
+          <path d="M215 112 L215 206" stroke="var(--wheat)" stroke-width="2" fill="none"/>
+          <path d="M209 200 L215 212 L221 200 Z"/>
+        </g>
+        <text x="338" y="44" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--muted)">CO₂</text>
+        <text x="338" y="58" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--muted)">N₂O</text>
+        <path d="M346 70 L346 84" stroke="var(--muted)" stroke-width="1.5"/>
+        <path d="M342 72 L346 64 L350 72 Z" fill="var(--muted)"/>
+      </svg>
+      <figcaption>Schematic soil profile · depth in cm</figcaption>
+    </figure>
+  </div>
+
+  <div>
+    <div class="sec-title"><h2>Research areas</h2><a href="#research" data-go="research">All research →</a></div>
+    <div class="areas">
+      <div class="area"><h3>Water resources &amp; quality</h3><p>Non-point source nutrient loading from agricultural watersheds, nitrate leaching, and water yield.</p></div>
+      <div class="area"><h3>Carbon &amp; greenhouse gases</h3><p>Soil organic carbon sequestration and N₂O emissions from cropping systems.</p></div>
+      <div class="area"><h3>Management practices</h3><p>How BMPs such as tillage, crop rotation, and terracing affect yield and the environment.</p></div>
+      <div class="area"><h3>Climate &amp; land use change</h3><p>Hydrological impacts of land conversion and a changing climate in large agricultural regions.</p></div>
+      <div class="area"><h3>Model development</h3><p>Improving nitrogen and carbon process representation in SWAT and other process-based models.</p></div>
+      <div class="area"><h3>Food–energy–water nexus</h3><p>Linking crop production, nutrient management, and water across regions.</p></div>
+    </div>
+  </div>
+
+  <div>
+    <div class="sec-title"><h2>Featured publications</h2><a href="#publications" data-go="publications">All publications →</a></div>
+    <div class="featured" id="featured"></div>
+  </div>
+
+  <div class="tool">
+    <span class="tag">SWAT-C</span>
+    <div>
+      <h3>The SWAT-Carbon model</h3>
+      <p>Our group helped develop SWAT-C, which extends the Soil and Water Assessment Tool to simulate soil carbon and nitrogen dynamics. The first public version was released on the official SWAT website in November 2022.</p>
+      <div class="links">
+        <a href="https://sites.google.com/view/swat-carbon/" target="_blank" rel="noopener">SWAT-C project site</a>
+        <a href="https://swat.tamu.edu/software/" target="_blank" rel="noopener">Download from SWAT</a>
+        <a href="https://groups.google.com/g/swat-carbon-modeling-group" target="_blank" rel="noopener">Users group</a>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="sec-title"><h2>Latest news</h2><a href="#news" data-go="news">All news →</a></div>
+    <ul class="news" id="news-home"></ul>
+  </div>
+
+</section>
+
+<!-- TEAM -->
+<section class="view" id="v-team" data-view="team" hidden>
+  <div class="page-head"><p class="eyebrow">People</p><h1>Our team</h1></div>
+  <div class="pi">
+    <div class="portrait">Photo of Dr. Liang</div>
+    <div>
+      <h2>Kang Liang, Ph.D., P.Eng.</h2>
+      <p class="role">Principal Investigator · Assistant Professor of Soil Physics and Hydrology</p>
+      <p>Dr. Liang is an Assistant Professor in soil physics and hydrology in the School of Natural Resource Sciences at North Dakota State University. His research combines field observations, biogeochemical models, remote sensing data, and statistical and machine learning approaches to understand how changes in climate, land use, and management practices affect soil and water quality, hydrological dynamics, and ecosystem health.</p>
+      <p>He holds a Ph.D. in Hydrology from the University of New Brunswick, where he is also an Adjunct Professor, and is a registered Professional Engineer in New Brunswick.</p>
+      <ul class="chips">
+        <li><a href="https://scholar.google.com/citations?user=PCzft9cAAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar</a></li>
+        <li><a href="https://www.researchgate.net/profile/Kang-Liang" target="_blank" rel="noopener">ResearchGate</a></li>
+        <li><a href="https://www.linkedin.com/in/kang-liang-a89b1454" target="_blank" rel="noopener">LinkedIn</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div>
+    <div class="sec-title"><h2>Graduate students &amp; postdocs</h2></div>
+    <div class="members">
+      <div class="member"><div class="portrait">Photo</div><h3>Student name <span class="ph">Placeholder</span></h3><p>Ph.D. student · Research topic</p></div>
+      <div class="member"><div class="portrait">Photo</div><h3>Student name <span class="ph">Placeholder</span></h3><p>M.S. student · Research topic</p></div>
+      <div class="member"><div class="portrait">Photo</div><h3>Postdoc name <span class="ph">Placeholder</span></h3><p>Postdoctoral researcher · Research topic</p></div>
+    </div>
+  </div>
+
+  <div class="join">
+    <h3>Join the lab</h3>
+    <p>Prospective graduate students and postdocs interested in soil physics, hydrology, water quality, or biogeochemical modeling are welcome to contact Dr. Liang by email with a CV and a short statement of research interests.</p>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section class="view" id="v-research" data-view="research" hidden>
+  <div class="page-head"><p class="eyebrow">Research</p><h1>What we study</h1><p>Our work links field measurements and models across plot, field, and watershed scales.</p></div>
+  <div>
+    <article class="theme">
+      <div><span class="eyebrow">Theme 1</span><h2>Water resources &amp; water quality</h2></div>
+      <div>
+        <p>Non-point source pollution from agricultural landscapes is a major source of pollution in aquatic ecosystems. Sustainable practices, efficient water use, and protecting water quality are essential for food security, ecological balance, and community well-being.</p>
+        <ul>
+          <li><a href="https://www.sciencedirect.com/science/article/abs/pii/S0378429019300917" target="_blank" rel="noopener">Nitrate leaching under potato rotations</a></li>
+          <li><a href="https://www.sciencedirect.com/science/article/abs/pii/S004896972032310X" target="_blank" rel="noopener">Land use effects on nitrate load and water yield</a></li>
+          <li><a href="https://hess.copernicus.org/articles/26/5917/2022/" target="_blank" rel="noopener">Watershed hydrology in the Canadian Prairies</a></li>
+          <li><a href="https://iwaponline.com/wst/article-abstract/75/10/2434/29942/Seasonal-variation-of-microbial-community-for-the" target="_blank" rel="noopener">Tailwater treatment in constructed wetlands</a></li>
+        </ul>
+      </div>
+    </article>
+    <article class="theme">
+      <div><span class="eyebrow">Theme 2</span><h2>Carbon sequestration &amp; greenhouse gas emissions</h2></div>
+      <div>
+        <p>We study how changes in land use and management under a changing climate affect the carbon sequestration potential and greenhouse gas emissions of cropping systems.</p>
+        <ul>
+          <li><a href="https://www.sciencedirect.com/science/article/abs/pii/S1364815222002535" target="_blank" rel="noopener">Soil organic carbon dynamics in the U.S. Corn Belt</a></li>
+          <li><a href="https://www.sciencedirect.com/science/article/abs/pii/S0269749123015397" target="_blank" rel="noopener">N₂O emissions from Corn Belt agroecosystems</a></li>
+        </ul>
+      </div>
+    </article>
+    <article class="theme">
+      <div><span class="eyebrow">Theme 3</span><h2>Agricultural management practices</h2></div>
+      <div>
+        <p>Best management practices are widely used to reduce the environmental impacts of farming, yet their effectiveness varies. We study the interactions among BMPs, crops, water, nutrients, and climate variability to support choices that are both economically viable and environmentally sound.</p>
+        <ul>
+          <li><a href="https://www.jswconline.org/content/74/3/225.short" target="_blank" rel="noopener">Conservation terraces and potato yields</a></li>
+          <li><a href="https://www.sciencedirect.com/science/article/abs/pii/S0378429019300917" target="_blank" rel="noopener">Crop rotation and nitrogen dynamics</a></li>
+          <li><a href="https://www.sciencedirect.com/science/article/abs/pii/S1364815222002535" target="_blank" rel="noopener">Tillage and soil organic carbon</a></li>
+        </ul>
+      </div>
+    </article>
+    <article class="theme">
+      <div><span class="eyebrow">Theme 4</span><h2>Climate &amp; land use change impacts</h2></div>
+      <div>
+        <p>Shifting precipitation, rising temperatures, more frequent extremes, and land conversion driven by food demand all change water availability and quality in agricultural regions.</p>
+        <ul>
+          <li><a href="https://hess.copernicus.org/articles/26/5917/2022/" target="_blank" rel="noopener">Land use conversion in the Canadian Prairies</a></li>
+          <li><a href="https://www.sciencedirect.com/science/article/abs/pii/S004896972032310X" target="_blank" rel="noopener">Land use in Atlantic Canada</a></li>
+        </ul>
+      </div>
+    </article>
+    <article class="theme">
+      <div><span class="eyebrow">Theme 5</span><h2>Biogeochemical model development</h2></div>
+      <div>
+        <p>We apply physically based models such as the Soil and Water Assessment Tool (SWAT) and the Cold Regions Hydrological Model (CRHM), and work to improve how process-based models represent nitrogen and carbon cycling in terrestrial and aquatic environments.</p>
+        <ul>
+          <li><a href="https://www.sciencedirect.com/science/article/abs/pii/S1364815222002535" target="_blank" rel="noopener">SWAT-C: soil organic carbon</a></li>
+          <li><a href="https://www.sciencedirect.com/science/article/abs/pii/S004896972301522X" target="_blank" rel="noopener">SWAT-C: soil inorganic nitrogen</a></li>
+          <li><a href="https://www.sciencedirect.com/science/article/abs/pii/S0269749123015397" target="_blank" rel="noopener">SWAT-C: nitrous oxide</a></li>
+        </ul>
+      </div>
+    </article>
+  </div>
+
+  <div>
+    <div class="sec-title"><h2>Projects</h2></div>
+    <ul class="projects" id="projects"></ul>
+  </div>
+</section>
+
+<!-- PUBLICATIONS -->
+<section class="view" id="v-publications" data-view="publications" hidden>
+  <div class="page-head"><p class="eyebrow">Output</p><h1>Publications &amp; presentations</h1><p>Lab members' names are in bold. Full metrics on <a href="https://scholar.google.com/citations?user=PCzft9cAAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar</a>.</p></div>
+  <div class="toolbar">
+    <div class="seg" role="group" aria-label="Show">
+      <button type="button" id="seg-pubs" aria-pressed="true">Papers</button>
+      <button type="button" id="seg-pres" aria-pressed="false">Presentations</button>
+    </div>
+    <input id="q" type="search" placeholder="Search by title, journal, or keyword" aria-label="Search publications">
+    <span class="count" id="count"></span>
+  </div>
+  <div id="publist"></div>
+</section>
+
+<!-- NEWS -->
+<section class="view" id="v-news" data-view="news" hidden>
+  <div class="page-head"><p class="eyebrow">Updates</p><h1>News</h1></div>
+  <ul class="news" id="news-all"></ul>
+</section>
+
+<!-- CONTACT -->
+<section class="view" id="v-contact" data-view="contact" hidden>
+  <div class="page-head"><p class="eyebrow">Get in touch</p><h1>Contact</h1></div>
+  <div class="contact">
+    <div class="card">
+      <h2>Dr. Kang Liang</h2>
+      <p>School of Natural Resource Sciences<br>North Dakota State University<br>Fargo, ND</p>
+      <div class="copyrow"><code id="email">kang.liang@ndsu.edu</code><button type="button" id="copy">Copy email</button></div>
+      <p style="font-size:14px;color:var(--muted)">Prospective students: please include a CV and a short statement of your research interests.</p>
+    </div>
+    <div class="card">
+      <h2>Professional service</h2>
+      <p style="font-size:14px;color:var(--muted)">Peer reviewer for 21 journals, including:</p>
+      <ul class="services">
+        <li>Journal of Hydrology</li><li>Hydrology and Earth System Sciences</li><li>Science of the Total Environment</li><li>Environmental Modelling &amp; Software</li><li>Agricultural Water Management</li><li>Agricultural Systems</li><li>Journal of Environmental Quality</li><li>Journal of Soil and Water Conservation</li>
+      </ul>
+      <p style="font-size:14px;color:var(--muted)">Member of AGU, EGU, and SSSA.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap funders">
+    <p class="eyebrow">Our research is supported by</p>
+    <div class="logos">
+      <div class="logo" title="USDA National Institute of Food and Agriculture"><span>USDA-NIFA</span><small>Logo goes here</small></div>
+      <div class="logo" title="National Science Foundation"><span>NSF</span><small>Logo goes here</small></div>
+      <div class="logo" title="NASA"><span>NASA</span><small>Logo goes here</small></div>
+      <div class="logo" title="Agriculture and Agri-Food Canada"><span>AAFC</span><small>Logo goes here</small></div>
+      <div class="logo" title="Beef Cattle Research Council"><span>BCRC</span><small>Logo goes here</small></div>
+    </div>
+  </div>
+  <div class="wrap">
+    <span>Soil Hydrology &amp; Physics Lab · School of Natural Resource Sciences · North Dakota State University</span>
+    <span>Last updated October 2026</span>
+  </div>
+</footer>
+
+<script>
+const PUBS=[
+ {n:19,y:2024,a:"Liang, X.Z., Gower, D., Kennedy, J.A., …, Liang, K., et al.",t:"DAWN: Dashboard for Agricultural Water Use and Nutrient Management—A Predictive Decision Support System to Improve Crop Production in a Changing Climate",v:"Bulletin of the American Meteorological Society",d:"105(2), E432–E441"},
+ {n:18,y:2023,a:"Liang, K.#, Qi, J.#, Zhang, X., Emmett, B., Johnson, J.M., Malone, R.W., Moglen, G.E., Venterea, R.T.",t:"Simulated nitrous oxide emissions from multiple agroecosystems in the US Corn Belt using the modified SWAT-C model",v:"Environmental Pollution",d:"122537",u:"https://www.sciencedirect.com/science/article/abs/pii/S0269749123015397",note:"# co-first authors"},
+ {n:17,y:2023,a:"Liang, K., Zhang, X., Liang, X.Z., Jin, V.L., Birru, G., Schmer, M.R., Robertson, G.P., McCarty, G.W., Moglen, G.E.",t:"Simulating agroecosystem soil inorganic nitrogen dynamics under long-term management with an improved SWAT-C model",v:"Science of The Total Environment",d:"162906",u:"https://www.sciencedirect.com/science/article/abs/pii/S004896972301522X"},
+ {n:16,y:2022,a:"Liang, K., Qi, J., Zhang, X., Deng, J.",t:"Replicating measured site-scale soil organic carbon dynamics in the U.S. corn belt using the SWAT-C model",v:"Environmental Modelling & Software",d:"105553",u:"https://www.sciencedirect.com/science/article/abs/pii/S1364815222002535"},
+ {n:15,y:2022,a:"Cordeiro, M.#, Liang, K.#*, Wilson, H., Vanrobaeys, J., David, L., Fang, X., Pomeroy, J.",t:"Simulating the hydrological impacts of land use conversion from annual crop to perennial forage in the Canadian Prairies using the Cold Regions Hydrological Modelling platform",v:"Hydrology and Earth System Sciences",d:"26(22), 5917–5931",u:"https://hess.copernicus.org/articles/26/5917/2022/",note:"# co-first authors, * corresponding author"},
+ {n:14,y:2022,a:"Azimi, M.A., Jiang, Y., Meng, F-R., Liang, K.",t:"Yield responses of four common potato cultivars to an industry standard and alternative rotation in Atlantic Canada",v:"American Journal of Potato Research",d:"1–11"},
+ {n:13,y:2021,a:"Grau, J., Liang, K., Ogilvie, J., Arp, P., Li, S., Robertson, B., Meng, F-R.",t:"Using unmanned aerial vehicle and lidar-derived DEMs to estimate channels of small tributary streams",v:"Remote Sensing",d:"13, 3380"},
+ {n:12,y:2021,a:"Grau, J., Liang, K., Ogilvie, J., Arp, P., Li, S., Robertson, B., Meng, F-R.",t:"Improved accuracy of riparian zone mapping using near ground unmanned aerial vehicle and photogrammetry method",v:"Remote Sensing",d:"13(10), 1997"},
+ {n:11,y:2020,a:"Liang, K., Jiang, Y., Qi, J., Fuller, K., Nyiraneza, J., Meng, F-R.",t:"Characterizing the impacts of land use on nitrate load and water yield in an agricultural watershed in Atlantic Canada",v:"Science of the Total Environment",d:"138793",u:"https://www.sciencedirect.com/science/article/abs/pii/S004896972032310X"},
+ {n:10,y:2019,a:"Liang, K., Jiang, Y., Nyiraneza, J., Fuller, K., Murnaghan, D., Meng, F-R.",t:"Nitrogen dynamics and leaching potential under conventional and alternative potato rotations in Atlantic Canada",v:"Field Crops Research",d:"242, 107603",u:"https://www.sciencedirect.com/science/article/abs/pii/S0378429019300917"},
+ {n:9,y:2019,a:"Liang, K., Qi, J., Liu, E., Jiang, Y., Li, S., Meng, F-R.",t:"Estimated potential impacts of soil and water conservation terraces on potato yields under different climate conditions",v:"Journal of Soil and Water Conservation",d:"74(3), 225–234",u:"https://www.jswconline.org/content/74/3/225.short"},
+ {n:8,y:2018,a:"Qi, J., Liang, K., Li, S., Wang, L., Meng, F-R.",t:"Hydrological evaluation of flow diversion terraces using downhill-slope calculation method for high resolution and accuracy DEMs",v:"Sustainability",d:"10(7), 2414"},
+ {n:7,y:2017,a:"Liang, K., Dai, Y., Wang, F., Liang, W.",t:"Seasonal variation of microbial community for the treatment of tailwater in constructed wetlands",v:"Water Science and Technology",d:"75(10), 2434–2442",u:"https://iwaponline.com/wst/article-abstract/75/10/2434/29942/Seasonal-variation-of-microbial-community-for-the"},
+ {n:6,y:2016,a:"Liang, K., Chang, J., Wang, F., Liu, S., Liang, W.",t:"Performance and the optimal hydraulic loading rates of vertical-flow constructed wetlands for the treatment of tailwater",v:"Journal of Lake Sciences",d:"28(1), 114–123",note:"In Chinese with English abstract"},
+ {n:5,y:2015,a:"Chang, J., Wu, S., Liang, K., Wu, Z., Liang, W.",t:"Responses of microbial abundance and enzyme activity in integrated vertical flow constructed wetlands for domestic and secondary wastewater",v:"Desalination and Water Treatment",d:"56(8), 2082–2091"},
+ {n:4,y:2015,a:"Chang, J., Wu, S., Liang, K., Wu, Z., Liang, W.",t:"Comparative study of microbial community structure in integrated vertical flow constructed wetlands for treatment of domestic and nitrified wastewaters",v:"Environmental Science and Pollution Research",d:"22(5), 3518–3527"},
+ {n:3,y:2015,a:"Chang, J., Liang, K., Wu, S., Zhang, S., Liang, W.",t:"Comparative evaluations of organic matters and nitrogen removal capacities of integrated vertical flow constructed wetlands: Domestic and nitrified wastewater treatment",v:"Journal of Environmental Science and Health, Part A",d:"50(7), 757–766"},
+ {n:"P",y:2015,a:"Liang, W., Liang, K., Chai, P., Wang, F.",t:"A Stacked Vertical-Flow Constructed Wetland Device for Sewage Treatment",v:"Patent",d:"CN201510497203",kind:"Patent"},
+ {n:2,y:2014,a:"Liang, K., Wang, Q., Wang, F., Liang, W.",t:"Review of constructed wetlands in the treatment of domestic wastewater",v:"Journal of Agro-Environment Science",d:"33(3), 422–428",note:"In Chinese with English abstract"},
+ {n:1,y:2013,a:"Tang, H., Liang, K., Liang, W.",t:"Water environmental capacity and management strategies of the Guanqiao Lake, Wuhan, China",v:"Environmental Science & Technology",d:"S2(2013), 52–55",note:"In Chinese with English abstract"}
+];
+const PRES=[
+ {y:2023,k:"Oral",a:"Liang, K., Zhang, X., Liang, X.",t:"Implications of Tillage Practices and Climate Change for Soil Organic Carbon and Water Quality in the Upper Mississippi River Basin",v:"AGU Fall Meeting, San Francisco, CA, Dec 11–15, 2023"},
+ {y:2023,k:"Oral",a:"Liang, K., Zhang, X., Liang, X., Balboa, G., Madox, M.",t:"Assessing the Impacts of Agricultural Management Practices on Soil and Water Quality using Process-based Model",v:"CONSERVE/DAWN Summer Internship Orientation, virtual, June 5, 2023"},
+ {y:2022,k:"Oral",a:"Liang, K., Zhang, X., Liang, X.",t:"Simulating Long-term Soil Inorganic Nitrogen as Affected by Agricultural Management Practices in the US Midwest: SWAT-C Development",v:"ASA, CSSA & SSSA International Annual Meetings, Baltimore, MD, Nov 6–9, 2022"},
+ {y:2022,k:"Poster",a:"Liang, K., Zhang, X., Qi, J.",t:"Improving the SWAT-C Model to Predict the Dynamics of Site-scale Soil Organic Carbon in the U.S. Corn Belt",v:"AGU Fall Meeting, Chicago, IL, Dec 12–16, 2022"},
+ {y:2021,k:"Oral",a:"Liang, K., Jiang, Y., Meng, F-R.",t:"Large discrepancies in nitrate loading estimate from sparse measurements by SWAT and statistical models at catchment scale",v:"EGU General Assembly, virtual, April 2021"},
+ {y:2020,k:"Invited",a:"Liang, K., Meng, F-R., Jiang, Y., Qi, J., Fuller, K., Nyiraneza, J.",t:"Modeling the impacts of land use on water quality and water quantity in an agricultural watershed in Prince Edward Island",v:"Winter Seminar, AAFC Charlottetown and Fredericton Research and Development Centres, virtual, Dec 9, 2020"},
+ {y:2020,k:"Oral",a:"Liang, K., Meng, F-R., Jiang, Y., Qi, J., Fuller, K., Nyiraneza, J.",t:"Characterizing the impacts of land use on nitrate load and water yield in an agricultural watershed in Prince Edward Island, Canada",v:"75th SWCS International Annual Conference, virtual, July 27–29, 2020"},
+ {y:2020,k:"Poster",a:"Liang, K., Jiang, Y., Meng, F-R., Nyiraneza, J., Fuller, K.",t:"Assessment of the impact of land use and management practices on nitrate loading in intensive agricultural watersheds",v:"Atlantic Living Laboratories Annual General Meeting, Charlottetown, PE, Jan 27–28, 2020"},
+ {y:2019,k:"Poster",a:"Liang, K., Jiang, Y., Nyiraneza, J., Fuller, K., Murnaghan, D., Meng, F-R.",t:"Mitigation of nitrogen leaching from potato-based rotations in Atlantic Canada: new insights from a nitrogen budget and dynamic analysis",v:"International Interdisciplinary Conference on Land Use and Water Quality, Aarhus, Denmark, June 3–6, 2019"},
+ {y:2018,k:"Oral",a:"Liang, K., Jiang, Y., Meng, F-R., Nyiraneza, J., Fuller, K., Murray, B., Murnaghan, D.",t:"Enhance watershed-based modelling tools for assessing nitrate loading to receiving waters",v:"Annual Project Workshop, Fredericton, NB, Feb 21, 2018"},
+ {y:2017,k:"Poster",a:"Liang, K., Jiang, Y., Meng, F-R., Nyiraneza, J., Geng, X., Fuller, K., Murray, B., Murnaghan, D.",t:"Modeling of nitrate loading to receiving waters in Prince Edward Island",v:"AAFC Charlottetown Research and Development Centre Open House, Aug 5, 2017"},
+ {y:2017,k:"Oral",a:"Liang, K., Jiang, Y., Meng, F-R., Nyiraneza, J., Fuller, K., Murray, B., Murnaghan, D.",t:"Examine the controls on nitrate leaching using root zone modeling",v:"Annual Project Workshop, Fredericton, NB, Feb 22, 2017"}
+];
+const NEWS=[
+ {d:"Dec 11–15, 2023",h:"Gave an oral presentation at <b>AGU 2023</b> in San Francisco on how tillage practices and climate change affect soil organic carbon and water quality in the Upper Mississippi River Basin."},
+ {d:"Sep 15, 2023",h:"Co-first-authored paper on simulated N₂O emissions from Corn Belt agroecosystems with the modified SWAT-C model published in <i>Environmental Pollution</i>. <a href=\"https://www.sciencedirect.com/science/article/abs/pii/S0269749123015397\" target=\"_blank\" rel=\"noopener\">Read it</a>"},
+ {d:"Jun 5, 2023",h:"Presented on assessing management practice impacts with process-based models at the Summer Internship Orientation of the USDA <a href=\"https://dawn.umd.edu/\" target=\"_blank\" rel=\"noopener\">DAWN</a> project."},
+ {d:"Mar 2023",h:"First-authored paper on soil inorganic nitrogen dynamics with an improved SWAT-C model published in <i>Science of The Total Environment</i>. <a href=\"https://www.sciencedirect.com/science/article/abs/pii/S004896972301522X\" target=\"_blank\" rel=\"noopener\">Read it</a>"},
+ {d:"Dec 12–16, 2022",h:"Poster at <b>AGU 2022</b> in Chicago on improving SWAT-C to predict site-scale soil organic carbon in the U.S. Corn Belt."},
+ {d:"Nov 6–9, 2022",h:"Oral presentation at the ASA, CSSA &amp; SSSA International Annual Meetings in Baltimore on SWAT-C development for soil inorganic nitrogen."},
+ {d:"Nov 3, 2022",h:"Our group released the first public version of the <b>SWAT-Carbon model</b> on the official SWAT website. <a href=\"https://sites.google.com/view/swat-carbon/\" target=\"_blank\" rel=\"noopener\">Learn more</a> or join the <a href=\"https://groups.google.com/g/swat-carbon-modeling-group\" target=\"_blank\" rel=\"noopener\">users group</a>."},
+ {d:"Oct 2022",h:"First-authored paper replicating site-scale soil organic carbon dynamics with SWAT-C published in <i>Environmental Modelling &amp; Software</i>. <a href=\"https://www.sciencedirect.com/science/article/abs/pii/S1364815222002535\" target=\"_blank\" rel=\"noopener\">Read it</a>"},
+ {d:"Oct 2022",h:"Co-first-authored paper on the hydrological impacts of converting annual crops to perennial forage in the Canadian Prairies published in <i>Hydrology and Earth System Sciences</i>. <a href=\"https://hess.copernicus.org/articles/26/5917/2022/\" target=\"_blank\" rel=\"noopener\">Read it</a>"},
+ {d:"Sep 2022",h:"Served on the planning committee for the 2022 Postdoctoral Research Symposium at the University of Maryland."},
+ {d:"Aug 1–5, 2022",h:"Attended the 2022 Nitrogen Use Efficiency Workshop and the annual DAWN project meeting at the University of Nebraska–Lincoln."}
+];
+const PROJECTS=[
+ {y:"2023 – present",f:"USDA-NIFA",t:"Assessing the effects of conservation practices on crop yield, water quality, and greenhouse gas emissions in the U.S. Corn Belt",now:true},
+ {y:"2022 – 2025",f:"USDA-NIFA",t:"Improving agricultural water use and nutrient management to sustain food and energy crop production in the Corn Belt",g:"Grant No. 2020-68012-31674"},
+ {y:"2022 – 2024",f:"NSF",t:"A modeling framework to understand the coupling of food, energy, and water in the teleconnected Corn and Cotton Belts",g:"Grant No. 1639327"},
+ {y:"2022 – 2024",f:"NASA",t:"An Aquatic Ecosystem Carbon Monitoring System (AECMS) for quantifying carbon fluxes, sources, and sinks of inland waters in the Upper Mississippi River Basin"},
+ {y:"2020 – 2021",f:"Beef Cattle Research Council",t:"Watershed-scale assessment of water and nutrient dynamics of pastures used by beef cattle",g:"Grant No. ENV.07.19"},
+ {y:"2019 – 2020",f:"AAFC Living Laboratories",t:"Demonstrating and transferring innovative BMPs for water and soil quality in agricultural landscapes in Prince Edward Island",g:"Grant No. J-002269"},
+ {y:"2015 – 2019",f:"AAFC",t:"Reducing sediment, N, and P loading from arable cropping systems to receiving waters in Eastern Canada",g:"Grant No. J-001270"},
+ {y:"2012 – 2015",f:"China Water Pollution Control Program",t:"Advanced treatment of wastewater plant tailwater using constructed wetland technologies",g:"Grant No. 2011ZX07303-001-04"},
+ {y:"2011 – 2012",f:"China Water Pollution Control Program",t:"Water quality, quantity, and aquatic habitat improvement of lakes in water-deficient cities in northern China",g:"Grant No. 2009ZX07106-003"}
+];
+const FEATURED=[
+ {n:18,s:"Uses the modified SWAT-C model to simulate nitrous oxide emissions across several cropping systems in the U.S. Corn Belt."},
+ {n:17,s:"Improves how SWAT-C represents soil inorganic nitrogen and tests it against long-term management experiments."},
+ {n:16,s:"Shows that SWAT-C can reproduce measured soil organic carbon dynamics at field sites across the Corn Belt."},
+ {n:15,s:"Models how converting annual cropland to perennial forage changes the water cycle in the Canadian Prairies."}
+];
+
+const esc=s=>String(s).replace(/&(?!amp;|lt;|gt;)/g,"&amp;").replace(/</g,"&lt;");
+const bold=a=>esc(a).replace(/Liang, K\.([#*]*)/g,"<mark>Liang, K.$1</mark>");
+
+// featured
+document.getElementById("featured").innerHTML=FEATURED.map(f=>{
+  const p=PUBS.find(x=>x.n===f.n);
+  return `<article class="feat"><span class="j">${esc(p.v)} · ${p.y}</span><h3><a href="${p.u}" target="_blank" rel="noopener">${esc(p.t)}</a></h3><p>${f.s}</p></article>`;
+}).join("");
+
+// news
+const newsLi=n=>`<li><time>${n.d}</time><p>${n.h}</p></li>`;
+document.getElementById("news-home").innerHTML=NEWS.slice(0,4).map(newsLi).join("");
+document.getElementById("news-all").innerHTML=NEWS.map(newsLi).join("");
+
+// projects
+document.getElementById("projects").innerHTML=PROJECTS.map(p=>`<li><span class="yrs">${p.y}</span><div><span class="fund">${esc(p.f)}</span>${p.now?'<span class="status">Active</span>':""}<div>${esc(p.t)}</div>${p.g?`<div class="gr">${p.g}</div>`:""}</div></li>`).join("");
+
+// publications
+let mode="pubs";
+const q=document.getElementById("q"), list=document.getElementById("publist"), count=document.getElementById("count");
+function renderPubs(){
+  const term=q.value.trim().toLowerCase();
+  const src=mode==="pubs"?PUBS:PRES;
+  const items=src.filter(p=>!term||(p.t+" "+p.v+" "+p.a).toLowerCase().includes(term));
+  const years=[...new Set(items.map(p=>p.y))];
+  list.innerHTML=years.map(y=>`<div class="year"><h3>${y}</h3><ol>${items.filter(p=>p.y===y).map(p=>{
+    const kind=mode==="pres"?`<span class="kind">${p.k}</span>`:(p.kind?`<span class="kind">${p.kind}</span>`:"");
+    const title=p.u?`<a class="t" href="${p.u}" target="_blank" rel="noopener">${esc(p.t)}</a>`:`<span class="t">${esc(p.t)}</span>`;
+    const venue=mode==="pres"?esc(p.v):`<span class="v">${esc(p.v)}</span>${p.d?", "+esc(p.d):""}`;
+    return `<li class="ref">${kind}${bold(p.a)} ${title}. ${venue}.${p.note?` <span class="note">(${p.note})</span>`:""}</li>`;
+  }).join("")}</ol></div>`).join("") || `<p style="color:var(--muted)">No ${mode==="pubs"?"papers":"presentations"} match “${esc(q.value)}”. Try a shorter keyword such as SWAT or nitrate.</p>`;
+  const noun=mode==="pubs"?"items":"presentations";
+  count.textContent=`${items.length} ${noun}`;
+}
+function setMode(m){mode=m;document.getElementById("seg-pubs").setAttribute("aria-pressed",m==="pubs");document.getElementById("seg-pres").setAttribute("aria-pressed",m==="pres");renderPubs();}
+document.getElementById("seg-pubs").onclick=()=>setMode("pubs");
+document.getElementById("seg-pres").onclick=()=>setMode("pres");
+q.addEventListener("input",renderPubs);
+renderPubs();
+
+// routing
+const VIEWS=["home","team","research","publications","news","contact"];
+function show(v,scroll){
+  if(!VIEWS.includes(v)) v="home";
+  document.querySelectorAll("[data-view]").forEach(s=>s.hidden=s.dataset.view!==v);
+  document.querySelectorAll("nav a").forEach(a=>a.dataset.go===v?a.setAttribute("aria-current","page"):a.removeAttribute("aria-current"));
+  if(scroll) window.scrollTo({top:0});
+}
+document.addEventListener("click",e=>{
+  const a=e.target.closest("[data-go]"); if(!a) return;
+  e.preventDefault(); show(a.dataset.go,true);
+  try{history.replaceState(null,"","#"+a.dataset.go)}catch(_){}
+});
+show((location.hash||"").slice(1),false);
+
+// copy email
+document.getElementById("copy").addEventListener("click",function(){
+  const t=document.getElementById("email").textContent, b=this;
+  const sel=()=>{const r=document.createRange();r.selectNodeContents(document.getElementById("email"));const s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent="Selected, press Ctrl+C";};
+  try{navigator.clipboard.writeText(t).then(()=>{b.textContent="Copied";setTimeout(()=>b.textContent="Copy email",1800)},sel)}catch(_){sel()}
+});
+</script>
+
+</body>
+</html>
